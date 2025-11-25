@@ -1,0 +1,7 @@
+class Routes{
+  static const String loginScreen = '/LoginScreen';
+  static const String signUpScreen = '/SignUpScreen';
+  static const String homeScreen = '/HomeScreen';
+  static const String submitComplaintScreen = '/SubmitComplaintScreen';
+  static const String editProfileScreen = '/EditProfileScreen';
+}
