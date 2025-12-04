@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:complaintsapp/core/constants/app_colors.dart';
-import 'package:complaintsapp/core/constants/app_text_styles.dart';
 import 'package:complaintsapp/core/public_widgets/app_button_widget.dart';
+import '../../../../../core/constants/colors.dart';
 import '../widgets/complaint_header.dart';
 import '../widgets/field_complaint_type.dart';
 import '../widgets/field_government_entity.dart';

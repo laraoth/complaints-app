@@ -7,13 +7,17 @@ class DescriptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final descriptionController = TextEditingController();
+
     return AppCard(
-      child: AppTextField(
-        label: "Description of Problem",
-        hint: "Describe the issue in detail...",
-        icon: Icons.description_outlined,
+      child: TextFieldWidget(
+        labelText: "Description of Problem",
+        hintText: "Describe the issue in detail...",
+        prefixIcon: Icons.description_outlined,
         minLines: 4,
         maxLines: 5,
+        controller: descriptionController,
+        obscureText: false,
       ),
     );
   }

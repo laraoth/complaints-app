@@ -1,36 +1,27 @@
-import 'package:complaintsapp/features/Auth/presentation/screens/login_screen.dart';
-import 'package:complaintsapp/features/Auth/presentation/screens/sign_up_screen.dart';
-import 'package:complaintsapp/features/Auth/submit_complaint/presentation/screens/submit_complaint_screen.dart';
-import 'package:complaintsapp/features/Edit_profile/screens/edit_profile_screen.dart';
-import 'package:complaintsapp/features/Home/screens/home_screen.dart';
-import 'package:go_router/go_router.dart';
+import 'package:complaintsapp/features/auth/presentation/screens/login_screen.dart';
+import 'package:complaintsapp/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:complaintsapp/features/auth/submit_complaint/presentation/screens/submit_complaint_screen.dart';
+import 'package:complaintsapp/features/edit_profile/screens/edit_profile_screen.dart';
+import 'package:complaintsapp/features/home/screens/home_screen.dart';
+import 'package:flutter/material.dart';
 import 'routes.dart';
 
-
 class AppRouter {
-  static final GoRouter router = GoRouter(
-    initialLocation: Routes.loginScreen,
-    routes: [
-      GoRoute(
-        path: Routes.loginScreen,
-        builder: (context, state) => const LoginScreen(),
-      ),
-      GoRoute(
-        path: Routes.signUpScreen,
-        builder: (context, state) => const SignUpScreen(),
-      ),
-      GoRoute(
-        path: Routes.homeScreen,
-        builder: (context, state) => const HomeScreen(),
-      ),
-       GoRoute(
-        path: Routes.submitComplaintScreen,
-        builder: (context, state) => const SubmitComplaintScreen(),
-      ),
-             GoRoute(
-        path: Routes.editProfileScreen,
-        builder: (context, state) => const EditProfileScreen(),
-      ),
-    ],
-  );
+  Route? generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case Routes.loginScreen:
+        return MaterialPageRoute(builder: (_) => LoginScreen());
+      case Routes.signUpScreen:
+        return MaterialPageRoute(builder: (_) => SignUpScreen());
+      case Routes.homeScreen:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
+      case Routes.submitComplaintScreen:
+        return MaterialPageRoute(builder: (_) => SubmitComplaintScreen());
+      case Routes.editProfileScreen:
+        return MaterialPageRoute(builder: (_) => EditProfileScreen());
+
+      default:
+        return null;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_text_styles.dart';
+import '../../../core/constants/colors.dart';
+import '../../../core/constants/text_styles.dart';
 
 class DrawerTile extends StatelessWidget {
   final String title;
@@ -26,12 +26,12 @@ class DrawerTile extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
           child: Row(
             children: [
-              Icon(icon, color: AppColors.primary, size: 28.sp),
+              Icon(icon, color: AppColors.primaryColor, size: 28.sp),
               SizedBox(width: 14.w),
               Text(
                 title,
-                style: AppTextStyles.title.copyWith(
-                  color: AppColors.primary,
+                style: AppTextStyles.font20BlackColorBold.copyWith(
+                  color: AppColors.primaryColor,
                   fontSize: 18.sp,
                 ),
               )

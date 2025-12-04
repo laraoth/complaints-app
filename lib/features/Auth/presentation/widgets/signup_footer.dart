@@ -1,8 +1,9 @@
+import 'package:complaintsapp/core/helpers/extentions.dart';
 import 'package:complaintsapp/core/routing/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:complaintsapp/core/constants/app_text_styles.dart';
-import 'package:complaintsapp/core/constants/app_colors.dart';
-import 'package:go_router/go_router.dart';
+
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/text_styles.dart';
 
 class SignUpFooter extends StatelessWidget {
   final VoidCallback? onSignInTap;
@@ -15,21 +16,21 @@ class SignUpFooter extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Already have an account?", style: AppTextStyles.label),
+          Text("Already have an account?",
+              style: AppTextStyles.font14BlackRegular),
           const SizedBox(width: 5),
-
-         GestureDetector(
-              onTap: () {
-                context.push(Routes.loginScreen);
-              },
-              child: Text(
-                "Sign In",
-                style: AppTextStyles.hint.copyWith(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.bold,
-                ),
+          GestureDetector(
+            onTap: () {
+              context.pushNamed(Routes.loginScreen);
+            },
+            child: Text(
+              "Sign In",
+              style: AppTextStyles.font14SecondaryTextRegular.copyWith(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.bold,
               ),
             ),
+          ),
         ],
       ),
     );

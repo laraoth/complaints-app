@@ -1,9 +1,9 @@
-import 'package:complaintsapp/core/constants/app_colors.dart';
-import 'package:complaintsapp/core/constants/app_text_styles.dart';
+import 'package:complaintsapp/core/helpers/extentions.dart';
 import 'package:complaintsapp/core/routing/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/text_styles.dart';
 
 class LoginFooter extends StatelessWidget {
   const LoginFooter({super.key});
@@ -15,15 +15,16 @@ class LoginFooter extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Don’t have an account? ", style: AppTextStyles.hint),
+            Text("Don’t have an account? ",
+                style: AppTextStyles.font14SecondartTextColorBold),
             GestureDetector(
               onTap: () {
-                context.push(Routes.signUpScreen);
+                context.pushNamed(Routes.signUpScreen);
               },
               child: Text(
                 "Register Now",
-                style: AppTextStyles.hint.copyWith(
-                  color: AppColors.primary,
+                style: AppTextStyles.font14SecondartTextColorBold.copyWith(
+                  color: AppColors.primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

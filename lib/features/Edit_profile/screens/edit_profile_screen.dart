@@ -1,8 +1,10 @@
+import 'package:complaintsapp/core/helpers/extentions.dart';
 import 'package:flutter/material.dart';
-import 'package:complaintsapp/core/constants/app_colors.dart';
-import 'package:complaintsapp/core/constants/app_text_styles.dart';
-import 'package:complaintsapp/features/Edit_profile/widgets/edit_profile_fields.dart';
+import 'package:complaintsapp/features/edit_profile/widgets/edit_profile_fields.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../core/constants/colors.dart';
+import '../../../core/constants/text_styles.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -12,17 +14,18 @@ class EditProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          color: AppColors.white,
-          onPressed: () => Navigator.pop(context),
+          color: AppColors.whiteColor,
+          onPressed: () => context.pop(),
         ),
         centerTitle: true,
         title: Text(
           'Edit Profile',
-          style: AppTextStyles.title.copyWith(color: AppColors.white),
+          style: AppTextStyles.font20BlackColorBold
+              .copyWith(color: AppColors.whiteColor),
         ),
       ),
       body: SingleChildScrollView(

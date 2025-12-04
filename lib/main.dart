@@ -1,27 +1,17 @@
-
+import 'package:complaintsapp/complaints_app.dart';
 import 'package:complaintsapp/core/routing/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'core/helpers/my_bloc_observer.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routerConfig: AppRouter.router,
-        );
-      },
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
+  // await AppSharedPreferences().init();
+  Bloc.observer = MyBlocObserver();
+  runApp(ComplaintsApp(
+    appRouter: AppRouter(),
+  ));
 }

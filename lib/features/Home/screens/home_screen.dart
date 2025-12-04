@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_text_styles.dart';
+import '../../../core/constants/colors.dart';
+import '../../../core/constants/text_styles.dart';
+import '../../../core/helpers/spacing.dart';
 import '../widgets/home_drawer.dart';
 import '../widgets/home_action_buttons.dart';
 
@@ -13,13 +14,13 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.white),
+        iconTheme: IconThemeData(color: AppColors.whiteColor),
         title: Text(
           'Home',
-          style: AppTextStyles.title.copyWith(
-            color: AppColors.white,
+          style: AppTextStyles.font20BlackColorBold.copyWith(
+            color: AppColors.whiteColor,
             fontSize: 20.sp,
           ),
         ),
@@ -34,8 +35,8 @@ class HomeScreen extends StatelessWidget {
             children: [
               Text(
                 "Welcome",
-                style: AppTextStyles.title.copyWith(
-                  color: AppColors.primary,
+                style: AppTextStyles.font20BlackColorBold.copyWith(
+                  color: AppColors.primaryColor,
                   fontSize: 34.sp,
                   fontWeight: FontWeight.bold,
                 ),
@@ -43,12 +44,12 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 10.h),
               Text(
                 "Choose an option to continue",
-                style: AppTextStyles.label.copyWith(
+                style: AppTextStyles.font14BlackBold.copyWith(
                   color: AppColors.textLight,
                   fontSize: 16.sp,
                 ),
               ),
-              SizedBox(height: 40.h),
+              verticalSpace(40),
               const HomeActionButtons(),
             ],
           ),

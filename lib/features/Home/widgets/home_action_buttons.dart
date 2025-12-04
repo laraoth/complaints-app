@@ -1,8 +1,8 @@
+import 'package:complaintsapp/core/helpers/extentions.dart';
 import 'package:complaintsapp/core/public_widgets/app_field_card.dart';
 import 'package:complaintsapp/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../core/public_widgets/app_button_widget.dart';
 
 class HomeActionButtons extends StatelessWidget {
@@ -18,7 +18,7 @@ class HomeActionButtons extends StatelessWidget {
             child: AppButton(
               text: "Submit Complaint",
               onPressed: () {
-                    context.push(Routes.submitComplaintScreen);
+                    context.pushNamed(Routes.submitComplaintScreen);
               },
             ),
           ),
