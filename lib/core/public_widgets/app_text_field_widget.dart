@@ -28,6 +28,7 @@ class TextFieldWidget extends StatelessWidget {
 
   final InputValidationType validationType;
   final String? customPattern;
+  final bool? readOnly;
 
   const TextFieldWidget({
     super.key,
@@ -51,6 +52,7 @@ class TextFieldWidget extends StatelessWidget {
     this.inputColor,
     this.validationType = InputValidationType.none,
     this.customPattern,
+    this.readOnly,
   });
 
   @override
@@ -59,6 +61,7 @@ class TextFieldWidget extends StatelessWidget {
       height: height?.h,
       width: width?.w,
       child: TextFormField(
+        readOnly: readOnly ?? false,
         style: TextStyle(color: inputColor ?? AppColors.greyColor),
         keyboardType: keyboardType ?? TextInputType.text,
         cursorColor: AppColors.primaryColor,
@@ -103,10 +106,7 @@ class TextFieldWidget extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           hintText: hintText,
-          hintStyle: TextStyle(
-            fontSize: 12.sp,
-            color: AppColors.greyColor,
-          ),
+          hintStyle: TextStyle(fontSize: 12.sp, color: AppColors.greyColor),
           labelText: labelText,
           labelStyle: TextStyle(
             fontSize: 14.sp,

@@ -19,7 +19,7 @@ class LoginFooter extends StatelessWidget {
                 style: AppTextStyles.font14SecondartTextColorBold),
             GestureDetector(
               onTap: () {
-                context.pushNamed(Routes.signUpScreen);
+                context.pushReplacementNamed(Routes.signUpScreen);
               },
               child: Text(
                 "Register Now",

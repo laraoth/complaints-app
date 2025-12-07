@@ -5,4 +5,5 @@ enum InputValidationType {
   username,
   password,
   number,
+  emailOrPhone,
 }

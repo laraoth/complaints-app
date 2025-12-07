@@ -21,7 +21,7 @@ class SignUpFooter extends StatelessWidget {
           const SizedBox(width: 5),
           GestureDetector(
             onTap: () {
-              context.pushNamed(Routes.loginScreen);
+              context.pushReplacementNamed(Routes.loginScreen);
             },
             child: Text(
               "Sign In",
