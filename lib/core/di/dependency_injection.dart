@@ -1,6 +1,9 @@
 import 'package:complaintsapp/features/auth/data/datasources/verify_otp_remote_data_source.dart';
 import 'package:complaintsapp/features/auth/data/repos/verify_otp_repo.dart';
 import 'package:complaintsapp/features/auth/logic/verify_otp/verify_otp_cubit.dart';
+import 'package:complaintsapp/features/edit_profile/data/datasources/change_password_remote_data_source.dart';
+import 'package:complaintsapp/features/edit_profile/data/repos/change_password_repo.dart';
+import 'package:complaintsapp/features/edit_profile/logic/change_password_cubit.dart';
 import 'package:dio/dio.dart';
 
 import 'package:get_it/get_it.dart';
@@ -8,10 +11,13 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/data/datasources/login_remote_data_source.dart';
+import '../../features/auth/data/datasources/password_reset_remote_data_source.dart';
 import '../../features/auth/data/datasources/signup_remote_data_source.dart';
 import '../../features/auth/data/repos/login_repo.dart';
+import '../../features/auth/data/repos/password_reset_repo.dart';
 import '../../features/auth/data/repos/signup_repo.dart';
 import '../../features/auth/logic/login/login_cubit.dart';
+import '../../features/auth/logic/password_reset/password_reset_cubit.dart';
 import '../../features/auth/logic/signup/signup_cubit.dart';
 import '../../features/submit_complaint/data/datasources/submit_complaint_remote_data_source.dart';
 import '../../features/submit_complaint/data/repos/submit_complaint_repo.dart';
@@ -35,6 +41,7 @@ Future<void> setupGetit() async {
   getIt.registerLazySingleton<SignupRemoteDataSource>(
     () => SignupRemoteDataSourceImp(apiServicesImpl: getIt()),
   );
+
   // //! feature - login
 
   //cubit
@@ -47,6 +54,23 @@ Future<void> setupGetit() async {
   getIt.registerLazySingleton<LoginRemoteDataSource>(
     () => LoginRemoteDataSourceImp(apiServicesImpl: getIt()),
   );
+
+  // //! feature - password reset
+
+  //cubit
+  getIt.registerFactory<PasswordResetCubit>(() => PasswordResetCubit(getIt()));
+  //repo
+  getIt.registerLazySingleton<PasswordResetRepo>(
+    () => PasswordResetRepo(
+      networkInfo: getIt(),
+      passwordResetRemoteDataSource: getIt(),
+    ),
+  );
+  //data source
+  getIt.registerLazySingleton<PasswordResetRemoteDataSource>(
+    () => PasswordResetRemoteDataSourceImp(apiServicesImpl: getIt()),
+  );
+
   // //! feature - verify otp
 
   //cubit
@@ -77,6 +101,24 @@ Future<void> setupGetit() async {
   //data source
   getIt.registerLazySingleton<SubmitComplaintRemoteDataSource>(
     () => SubmitComplaintRemoteDataSourceImp(apiServicesImpl: getIt()),
+  );
+
+  // //! feature - Edit Profile
+
+  //cubit
+  getIt.registerFactory<ChangePasswordCubit>(
+    () => ChangePasswordCubit(getIt()),
+  );
+  //repo
+  getIt.registerLazySingleton<ChangePasswordRepo>(
+    () => ChangePasswordRepo(
+      networkInfo: getIt(),
+      changePasswordRemoteDataSource: getIt(),
+    ),
+  );
+  //data source
+  getIt.registerLazySingleton<ChangePasswordRemoteDataSource>(
+    () => ChangePasswordRemoteDataSourceImp(apiServicesImpl: getIt()),
   );
 
   // //! feature - home

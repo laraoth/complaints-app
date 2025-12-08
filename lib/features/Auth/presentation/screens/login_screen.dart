@@ -81,7 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
-                            //! go to fogot pass screen
+                            context.pushNamed(
+                              Routes.requestResetPasswordScreen,
+                            );
                           },
                           child: Text(
                             "Forgot Password?",

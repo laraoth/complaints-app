@@ -42,6 +42,14 @@ class SubmitComplaintCubit extends Cubit<SubmitComplaintState> {
   final List<TypeOfComplaint> typeOfComplaint = kTypesOfComplaint;
 
   Future<void> sendComplaint() async {
+    if (descriptionController.text.length < 10) {
+      emit(
+        const SubmitComplaintState.error(
+          error: "Description must be at least 10 characters long.",
+        ),
+      );
+      return;
+    }
     emit(SubmitComplaintState.loading());
     final List<File> attachments = [];
     if (image != null) attachments.add(image!);

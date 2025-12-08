@@ -1,10 +1,10 @@
 import 'package:complaintsapp/core/helpers/extentions.dart';
 import 'package:flutter/material.dart';
-import 'package:complaintsapp/features/edit_profile/widgets/edit_profile_fields.dart';
+import 'package:complaintsapp/features/edit_profile/presentation/widgets/edit_profile_fields.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/constants/colors.dart';
-import '../../../core/constants/text_styles.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/text_styles.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});

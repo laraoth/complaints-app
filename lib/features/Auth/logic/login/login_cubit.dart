@@ -42,7 +42,7 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       final exception = NetworkExceptions.getException(e);
       final message = NetworkExceptions.getErrorMessage(exception);
-      emit(LoginState.error(error: message));
+      emit(LoginState.error(error: message)); 
     }
   }
 }

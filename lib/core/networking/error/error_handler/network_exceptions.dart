@@ -77,7 +77,20 @@ abstract class NetworkExceptions with _$NetworkExceptions implements Exception {
   }
 
   static NetworkExceptions handleResponse(Response<dynamic>? response) {
-    ErrorEntity errorModel = ErrorEntity.fromJson(jsonDecode(response?.data));
+    ErrorEntity errorModel;
+    try {
+      final data = response?.data;
+
+      if (data is Map<String, dynamic>) {
+        errorModel = ErrorEntity.fromJson(data);
+      } else if (data is String) {
+        errorModel = ErrorEntity.fromJson(jsonDecode(data));
+      } else {
+        errorModel = ErrorEntity(message: null);
+      }
+    } catch (_) {
+      errorModel = ErrorEntity(message: null);
+    }
 
     int statusCode = response?.statusCode ?? 0;
 
@@ -110,9 +123,12 @@ abstract class NetworkExceptions with _$NetworkExceptions implements Exception {
   }
 
   static NetworkExceptions getException(error) {
+    if (error is NetworkExceptions) {
+      return error;
+    }
     if (error is Exception) {
       try {
-        NetworkExceptions networkExceptions;
+        late NetworkExceptions networkExceptions;
         if (error is DioException) {
           switch (error.type) {
             case DioExceptionType.cancel:
