@@ -4,19 +4,26 @@ import 'package:complaintsapp/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/colors.dart';
+import '../../../core/constants/shared_pref_keys.dart';
 import '../../../core/constants/text_styles.dart';
+import '../../../core/helpers/app_shared_preferences.dart';
 
 class DrawerHeaderSection extends StatelessWidget {
   const DrawerHeaderSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final sharedPref = AppSharedPreferences();
+    final String userName =
+        sharedPref.getString(AppSharedPrefKeys.name) ?? "User Name";
+    final String userEmail =
+        sharedPref.getString(AppSharedPrefKeys.email) ?? "user@email.com";
     return Row(
       children: [
         CircleAvatar(
           backgroundColor: AppColors.primaryColor.withValues(alpha: 0.1),
-          radius: 36.r,
-          child: Icon(Icons.person, size: 32.sp, color: AppColors.primaryColor),
+          radius: 20.r,
+          child: Icon(Icons.person, size: 20.sp, color: AppColors.primaryColor),
         ),
         horizontalSpace(5),
         Row(
@@ -25,13 +32,16 @@ class DrawerHeaderSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "User Name",
-                  style:
-                      AppTextStyles.font20BlackColorBold.copyWith(fontSize: 18),
+                  userName,
+                  style: AppTextStyles.font20BlackColorBold.copyWith(
+                    fontSize: 18,
+                  ),
                 ),
-                SizedBox(height: 4.h),
-                Text("user@email.com",
-                    style: AppTextStyles.font14SecondaryTextRegular),
+                verticalSpace(4),
+                Text(
+                  userEmail,
+                  style: AppTextStyles.font14SecondaryTextRegular,
+                ),
               ],
             ),
             Padding(
@@ -42,7 +52,7 @@ class DrawerHeaderSection extends StatelessWidget {
                   context.pushNamed(Routes.editProfileScreen);
                 },
               ),
-            )
+            ),
           ],
         ),
       ],

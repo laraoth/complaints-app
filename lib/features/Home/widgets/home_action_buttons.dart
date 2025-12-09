@@ -18,7 +18,7 @@ class HomeActionButtons extends StatelessWidget {
             child: AppButton(
               text: "Submit Complaint",
               onPressed: () {
-                    context.pushNamed(Routes.submitComplaintScreen);
+                context.pushNamed(Routes.submitComplaintScreen);
               },
             ),
           ),
@@ -28,8 +28,10 @@ class HomeActionButtons extends StatelessWidget {
           width: double.infinity,
           child: AppCard(
             child: AppButton(
-              text: "Track Complaint",
-              onPressed: () {},
+              text: "Complaints List",
+              onPressed: () {
+                context.pushNamed(Routes.complaintsListScreen);
+              },
             ),
           ),
         ),

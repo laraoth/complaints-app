@@ -7,4 +7,5 @@ class AppLinkUrl {
   static const String submitPasswordReset = "auth/password/reset";
   static const String changePassword = "auth/password/change";
   static const String submitComplaint = "complaints";
+  static const String complaints = "complaints";
 }

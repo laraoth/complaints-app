@@ -19,9 +19,15 @@ import '../../features/auth/data/repos/signup_repo.dart';
 import '../../features/auth/logic/login/login_cubit.dart';
 import '../../features/auth/logic/password_reset/password_reset_cubit.dart';
 import '../../features/auth/logic/signup/signup_cubit.dart';
-import '../../features/submit_complaint/data/datasources/submit_complaint_remote_data_source.dart';
-import '../../features/submit_complaint/data/repos/submit_complaint_repo.dart';
-import '../../features/submit_complaint/logic/submit_complaint_cubit.dart';
+import '../../features/complaints_manager/data/datasources/complaints_remote_data_source.dart';
+import '../../features/complaints_manager/data/datasources/edit_and_delete_complaint_remote_data_source.dart';
+import '../../features/complaints_manager/data/datasources/submit_complaint_remote_data_source.dart';
+import '../../features/complaints_manager/data/repos/complaints_repo.dart';
+import '../../features/complaints_manager/data/repos/edit_and_delete_complaint_repo.dart';
+import '../../features/complaints_manager/data/repos/submit_complaint_repo.dart';
+import '../../features/complaints_manager/logic/complaints/complaints_cubit.dart';
+import '../../features/complaints_manager/logic/edit_and_delte_complaint/edit_and_delete_complaint_cubit.dart';
+import '../../features/complaints_manager/logic/submit_complaint/submit_complaint_cubit.dart';
 import '../networking/api_services_impl.dart';
 import '../networking/crud_dio.dart';
 import '../networking/network_info.dart';
@@ -101,6 +107,39 @@ Future<void> setupGetit() async {
   //data source
   getIt.registerLazySingleton<SubmitComplaintRemoteDataSource>(
     () => SubmitComplaintRemoteDataSourceImp(apiServicesImpl: getIt()),
+  );
+
+  // //! feature - Complaints List
+
+  //cubit
+  getIt.registerFactory<ComplaintsCubit>(() => ComplaintsCubit(getIt()));
+  //repo
+  getIt.registerLazySingleton<ComplaintsRepo>(
+    () => ComplaintsRepo(
+      networkInfo: getIt(),
+      complaintsRemoteDataSource: getIt(),
+    ),
+  );
+  //data source
+  getIt.registerLazySingleton<ComplaintsRemoteDataSource>(
+    () => ComplaintsRemoteDataSourceImpl(apiServicesImpl: getIt()),
+  );
+  // //! feature - Edit And delete Complaint
+
+  //cubit
+  getIt.registerFactory<EditAndDeleteComplaintCubit>(
+    () => EditAndDeleteComplaintCubit(getIt()),
+  );
+  //repo
+  getIt.registerLazySingleton<EditAndDeleteComplaintRepo>(
+    () => EditAndDeleteComplaintRepo(
+      networkInfo: getIt(),
+      editAndDeleteComplaintRemoteDataSource: getIt(),
+    ),
+  );
+  //data source
+  getIt.registerLazySingleton<EditAndDeleteComplaintRemoteDataSource>(
+    () => EditAndDeleteComplaintRemoteDataSourceImp(apiServicesImpl: getIt()),
   );
 
   // //! feature - Edit Profile

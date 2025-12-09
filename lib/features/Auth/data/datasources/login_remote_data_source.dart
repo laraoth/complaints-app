@@ -35,8 +35,12 @@ class LoginRemoteDataSourceImp implements LoginRemoteDataSource {
       final response = LoginResponse.fromJson(result);
 
       final token = response.data.token;
+      final email = response.data.user.email;
+      final name = response.data.user.name;
       final sharedPref = AppSharedPreferences();
       sharedPref.setString(AppSharedPrefKeys.token, token);
+      sharedPref.setString(AppSharedPrefKeys.email, email);
+      sharedPref.setString(AppSharedPrefKeys.name, name);
 
       return response;
     } on DioException catch (e) {
