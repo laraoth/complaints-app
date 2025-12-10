@@ -19,6 +19,7 @@ import '../../features/complaints_manager/logic/complaints/complaints_cubit.dart
 import '../../features/complaints_manager/logic/submit_complaint/submit_complaint_cubit.dart';
 import '../../features/complaints_manager/presentation/screens/complaint_details_screen.dart';
 import '../../features/complaints_manager/presentation/screens/complaints_list_screen.dart';
+import '../../features/complaints_manager/presentation/screens/edit_complaint_screen.dart';
 import '../di/dependency_injection.dart';
 import 'routes.dart';
 
@@ -63,8 +64,13 @@ class AppRouter {
         );
       case Routes.submitComplaintScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<SubmitComplaintCubit>(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt<SubmitComplaintCubit>()),
+              BlocProvider(
+                create: (context) => getIt<EditAndDeleteComplaintCubit>(),
+              ),
+            ],
             child: SubmitComplaintScreen(),
           ),
         );
@@ -91,6 +97,19 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => getIt<EditAndDeleteComplaintCubit>(),
             child: ComplaintDetailsScreen(complaint: complaint),
+          ),
+        );
+      case Routes.editComplaintScreen:
+        final complaint = settings.arguments as Complaint;
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<EditAndDeleteComplaintCubit>(),
+              ),
+              BlocProvider(create: (context) => getIt<SubmitComplaintCubit>()),
+            ],
+            child: EditComplaintScreen(complaint: complaint),
           ),
         );
 

@@ -6,14 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:complaintsapp/core/public_widgets/app_text_field_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../logic/edit_and_delte_complaint/edit_and_delete_complaint_cubit.dart';
 import '../../../logic/submit_complaint/submit_complaint_cubit.dart';
 
 class LocationField extends StatelessWidget {
-  const LocationField({super.key});
+  final bool isEdit;
+  const LocationField({super.key, required this.isEdit});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SubmitComplaintCubit>();
+    final submitCubit = context.read<SubmitComplaintCubit>();
+    final editCubit = context.read<EditAndDeleteComplaintCubit>();
 
     return AppCard(
       child: Column(
@@ -22,7 +25,9 @@ class LocationField extends StatelessWidget {
             labelText: "Location",
             hintText: "Enter location or address",
             prefixIcon: Icons.location_on_outlined,
-            controller: cubit.locationController,
+            controller: isEdit
+                ? editCubit.locationController
+                : submitCubit.locationController,
             obscureText: false,
             readOnly: true,
           ),
@@ -30,7 +35,9 @@ class LocationField extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton.icon(
-              onPressed: () => cubit.getCurrentLocation(),
+              onPressed: () => isEdit
+                  ? editCubit.getCurrentLocation()
+                  : submitCubit.getCurrentLocation(),
               icon: const Icon(
                 Icons.my_location,
                 color: AppColors.primaryColor,

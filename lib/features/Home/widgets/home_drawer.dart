@@ -1,6 +1,10 @@
+import 'package:complaintsapp/core/helpers/extentions.dart';
+import 'package:complaintsapp/core/routing/routes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/colors.dart';
+import '../../../core/helpers/app_shared_preferences.dart';
 import 'drawer_header.dart';
 import 'drawer_tile.dart';
 
@@ -33,7 +37,17 @@ class HomeDrawer extends StatelessWidget {
               DrawerTile(
                 title: "Logout",
                 icon: Icons.logout,
-                onTap: () => Navigator.pop(context),
+                onTap: () {
+                  context.pushNamedAndRemoveUntil(
+                    Routes.loginScreen,
+                    predicate: (route) => false,
+                  );
+                  final sharedPref = AppSharedPreferences();
+                  sharedPref.clear();
+                  if (kDebugMode) {
+                    print('User logged out and shared preferences cleared');
+                  }
+                },
               ),
               SizedBox(height: 8.h),
             ],

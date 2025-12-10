@@ -6,7 +6,8 @@ import '../../../../../core/constants/colors.dart';
 import '../../../../../core/constants/text_styles.dart';
 
 class ComplaintHeader extends StatelessWidget {
-  const ComplaintHeader({super.key});
+  final String title;
+  const ComplaintHeader({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class ComplaintHeader extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            "Submit Complaint",
+            title,
             style: AppTextStyles.font20BlackColorBold
                 .copyWith(fontSize: 22, color: AppColors.whiteColor),
           ),

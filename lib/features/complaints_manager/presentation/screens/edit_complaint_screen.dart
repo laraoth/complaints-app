@@ -2,26 +2,41 @@ import 'package:complaintsapp/core/helpers/extentions.dart';
 import 'package:complaintsapp/core/helpers/spacing.dart';
 import 'package:complaintsapp/core/public_widgets/loading_widget.dart';
 import 'package:complaintsapp/core/public_widgets/snack_bar_widget.dart';
-import 'package:complaintsapp/features/complaints_manager/logic/submit_complaint/submit_complaint_cubit.dart';
+import 'package:complaintsapp/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:complaintsapp/core/public_widgets/app_button_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/colors.dart';
+import '../../data/models/complaints_list/complaints_response.dart';
+import '../../logic/edit_and_delte_complaint/edit_and_delete_complaint_cubit.dart';
+import '../widgets/edit_complaint/attach_document_tile_edit.dart';
+import '../widgets/edit_complaint/attach_photo_tile_edit.dart';
 import '../widgets/submit_complaint/complaint_header.dart';
 import '../widgets/submit_complaint/field_complaint_type.dart';
 import '../widgets/submit_complaint/field_government_entity.dart';
 import '../widgets/submit_complaint/field_location.dart';
 import '../widgets/submit_complaint/field_description.dart';
-import '../widgets/submit_complaint/attach_photo_tile.dart';
-import '../widgets/submit_complaint/attach_document_tile.dart';
 
-class SubmitComplaintScreen extends StatelessWidget {
-  const SubmitComplaintScreen({super.key});
+class EditComplaintScreen extends StatefulWidget {
+  final Complaint complaint;
+  const EditComplaintScreen({super.key, required this.complaint});
+
+  @override
+  State<EditComplaintScreen> createState() => _EditComplaintScreenState();
+}
+
+class _EditComplaintScreenState extends State<EditComplaintScreen> {
+  @override
+  void initState() {
+    final cubit = context.read<EditAndDeleteComplaintCubit>();
+    cubit.initializeFromComplaint(widget.complaint);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SubmitComplaintCubit>();
+    final cubit = context.read<EditAndDeleteComplaintCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SingleChildScrollView(
@@ -29,28 +44,31 @@ class SubmitComplaintScreen extends StatelessWidget {
           key: cubit.formKey,
           child: Column(
             children: [
-              const ComplaintHeader(title: 'Submit Complaint'),
+              const ComplaintHeader(title: 'Edit Complaint'),
               verticalSpace(15),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
+                padding: EdgeInsets.symmetric(horizontal: 18.w),
                 child: Column(
                   children: [
-                    ComplaintTypeField(isEdit: false),
+                    ComplaintTypeField(isEdit: true),
                     verticalSpace(15),
-                    GovernmentEntityField(isEdit: false),
+                    GovernmentEntityField(isEdit: true),
                     verticalSpace(15),
-                    LocationField(isEdit: false),
+                    LocationField(isEdit: true),
                     verticalSpace(15),
-                    DescriptionField(isEdit: false),
+                    DescriptionField(isEdit: true),
                     verticalSpace(20),
-                    AttachPhotoTile(),
+                    AttachPhotoTileEdit(),
                     verticalSpace(10),
-                    AttachDocumentTile(),
+                    AttachDocumentTileEdit(),
                     verticalSpace(25),
                   ],
                 ),
               ),
-              BlocConsumer<SubmitComplaintCubit, SubmitComplaintState>(
+              BlocConsumer<
+                EditAndDeleteComplaintCubit,
+                EditAndDeleteComplaintState
+              >(
                 listener: (context, state) {
                   state.whenOrNull(
                     success: (response) {
@@ -61,7 +79,10 @@ class SubmitComplaintScreen extends StatelessWidget {
                       cubit.currentLng = null;
                       cubit.clearImage();
                       cubit.clearPdf();
-                      context.pop();
+                      context.pushNamedAndRemoveUntil(
+                        Routes.homeScreen,
+                        predicate: (route) => false,
+                      );
                     },
                     error: (error) => showAppSnackBar(context, error),
                     locationError: (error) => showAppSnackBar(context, error),
@@ -76,10 +97,10 @@ class SubmitComplaintScreen extends StatelessWidget {
                         horizontal: 55.w,
                       ),
                       child: AppButton(
-                        text: "Submit Complaint",
+                        text: "Edit Complaint",
                         onPressed: () {
                           if (cubit.formKey.currentState!.validate()) {
-                            cubit.sendComplaint();
+                            cubit.editComplaint();
                           }
                         },
                       ),
